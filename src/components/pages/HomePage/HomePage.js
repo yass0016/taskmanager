@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import Sidebar from "../../layout/Sidebar";
 
 class HomePage extends Component {
@@ -12,7 +14,10 @@ class HomePage extends Component {
 
           <div className="card mb-4">
             <div className="card-body">
-              This is a blank page you can use as a starting point.
+              {"Welcome " +
+                this.props.user.firstname +
+                " " +
+                this.props.user.lastname}
             </div>
           </div>
         </div>
@@ -21,4 +26,13 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+const mapStateToProps = state => {
+  return {
+    user: state.authState.user
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {}
+)(HomePage);
