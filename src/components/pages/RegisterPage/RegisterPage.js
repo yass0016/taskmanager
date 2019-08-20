@@ -1,18 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { login } from "../../../redux/actions/auth";
+import { register } from "../../../redux/actions/auth";
 
 import Sidebar from "../../layout/Sidebar";
 
-class LoginPage extends Component {
+class RegisterPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      firstname: null,
+      lastname: null,
       email: null,
       password: null
     };
+  }
+
+  onFirstNameChange(e) {
+    this.setState({
+      firstname: e.target.value
+    });
+  }
+
+  onLastNameChange(e) {
+    this.setState({
+      lastname: e.target.value
+    });
   }
 
   onEmailChange(e) {
@@ -27,17 +41,24 @@ class LoginPage extends Component {
     });
   }
 
-  login(e) {
+  register(e) {
     e.preventDefault();
 
     var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (
+      this.state.firstname.length > 1 &&
+      this.state.lastname.length > 1 &&
       this.state.email.length > 0 &&
       this.state.password.length >= 6 &&
       re.test(String(this.state.email).toLowerCase())
     )
-      this.props.login(this.state.email, this.state.password);
+      this.props.register(
+        this.state.firstname,
+        this.state.lastname,
+        this.state.email,
+        this.state.password
+      );
   }
 
   componentDidMount() {
@@ -57,7 +78,29 @@ class LoginPage extends Component {
           <div className="card mb-4">
             <div className="card-body">
               <div className="">
-                <form onSubmit={this.login.bind(this)}>
+                <form onSubmit={this.register.bind(this)}>
+                  <div className="form-group">
+                    <label htmlFor="firstname">First Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="firstname"
+                      placeholder="First Name"
+                      required
+                      onChange={this.onFirstNameChange.bind(this)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="lastname">Last Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="lastname"
+                      placeholder="Last Name"
+                      required
+                      onChange={this.onLastNameChange.bind(this)}
+                    />
+                  </div>
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input
@@ -82,7 +125,7 @@ class LoginPage extends Component {
                   </div>
 
                   <div>
-                    <button className="btn btn-primary">Login</button>
+                    <button className="btn btn-primary">Register</button>
                   </div>
                 </form>
               </div>
@@ -103,6 +146,6 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    login
+    register
   }
-)(LoginPage);
+)(RegisterPage);

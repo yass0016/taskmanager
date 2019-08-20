@@ -10,12 +10,14 @@ import NoMatchPage from "../pages/NoMatchPage/NoMatchPage";
 import ProtectedRoute from "../common/ProtectedRoute";
 
 import Layout from "../layout/Layout";
+import RegisterPage from "../pages/RegisterPage/RegisterPage";
 
 const routes = (
   <Layout>
     <Switch>
       <ProtectedRoute exact path="/" component={HomePage} />
       <Route path="/login" component={LoginPage} />
+      <Route path="/register" component={RegisterPage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/contact" component={ContactPage} />
       <ProtectedRoute component={NoMatchPage} />

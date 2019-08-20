@@ -54,13 +54,20 @@ class Header extends Component {
           <div className="navbar-nav ml-auto">
             <button
               onClick={() => {
-                this.props.login("yass0016@gmail.com", "123456");
+                this.props.history.push("/login");
               }}
               className="btn btn-primary"
             >
               Login
             </button>
-            <button className="btn btn-primary">Register</button>
+            <button
+              onClick={() => {
+                this.props.history.push("/register");
+              }}
+              className="btn btn-primary"
+            >
+              Register
+            </button>
           </div>
         )}
       </nav>
